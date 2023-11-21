@@ -64,7 +64,8 @@ function calculaAdjacents(x,y){
     }
     if(contadorDeMinas == 0){
         casella.style.backgroundImage =  "";
-        for()
+        for(naddasafsdhfjghasfkg)
+
     } else {
         casella.style.backgroundImage =  "";
         casella.innerText = contadorDeMinas;
