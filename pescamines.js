@@ -64,14 +64,26 @@ function calculaAdjacents(x,y){
     }
     if(contadorDeMinas == 0){
         casella.style.backgroundImage =  "";
-        for(naddasafsdhfjghasfkg)
-
+        
     } else {
         casella.style.backgroundImage =  "";
         casella.innerText = contadorDeMinas;
     }
-}
+    setMinesAdjacents(x,y,)
 
+}
+function calculaAdjacents(x,y)
+setMinesAdjacents(x,y,nMinesAdjacents){
+
+}
+function mouAAdjacent(x,y) { 
+    for(let i = x-1; i <= x+1; i++){
+        for(let j = y-1; j <= y+1; j++){
+            console.log(`${i},${j}`);
+            console.log(`lo mando a calcula adjacents`);
+    }
+}
+}
 
 function setMines() {
 let totalCeldas = files * columnes;
