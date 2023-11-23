@@ -52,40 +52,38 @@ function mostraCasella(x, y) {
   let casella = document.getElementById(`${x}-${y}`);
   let valorCasella = casella.getAttribute("data-num-mines");
   if (valorCasella == 0) {
-    casella.style.backgroundImage = "";
+    mostraAdjacent(x, y);
   } else {
     casella.style.backgroundImage = "";
     casella.innerText = valorCasella;
   }
 }
 function calculaAdjacents() {
-    for (let i = 1; i <= files; i++) {
-      for (let j = 1; j <= columnes; j++) {
-        let contadorDeMinas = 0;
-  
-        for (let k = i - 1; k <= i + 1; k++) {
-          for (let l = j - 1; l <= j + 1; l++) {
-            // Asegúrate de no contar la casilla actual
-            if (k !== i || l !== j) {
-              // Verifica que la casilla adyacente esté dentro de los límites
-              if (k >= 1 && k <= files && l >= 1 && l <= columnes) {
-                console.log(`${k}-${l}`);
-                casellaAnexa = document.getElementById(`${k}-${l}`);
-                valorCasellaAnnexa = casellaAnexa.getAttribute("data-mina");
-                if (valorCasellaAnnexa == "true") {
-                  contadorDeMinas++;
-                }
+  for (let i = 1; i <= files; i++) {
+    for (let j = 1; j <= columnes; j++) {
+      let contadorDeMinas = 0;
+
+      for (let k = i - 1; k <= i + 1; k++) {
+        for (let l = j - 1; l <= j + 1; l++) {
+          if (k !== i || l !== j) {
+            if (k >= 1 && k <= files && l >= 1 && l <= columnes) {
+              console.log(`${k}-${l}`);
+              casellaAnexa = document.getElementById(`${k}-${l}`);
+              valorCasellaAnnexa = casellaAnexa.getAttribute("data-mina");
+              if (valorCasellaAnnexa == "true") {
+                contadorDeMinas++;
               }
             }
           }
         }
-  
-        // Actualiza el número de minas adyacentes en la casilla actual
-        setMinesAdjacents(i, j, contadorDeMinas);
       }
+
+      // Actualiza el número de minas adyacentes en la casilla actual
+      setMinesAdjacents(i, j, contadorDeMinas);
     }
   }
-  
+}
+
 function setMinesAdjacents(x, y, nMinesAdjacents) {
   let elemento = document.getElementById(`${x}-${y}`);
   elemento.setAttribute("data-num-mines", [nMinesAdjacents]);
@@ -135,4 +133,21 @@ function iniciarPartida() {
   columnes = prompt("Quantes columnes vols? (10 minim i 30 maxim)");
   mida();
   crearTaulell();
+}
+function mostraAdjacent(x, y) {
+  for (let i = x - 1; i <= x + 1; i++) {
+    for (let j = y - 1; j <= y + 1; j++) {
+      if (i !== x || j !== y) {
+        if (i >= 1 && i <= files && j >= 1 && j <= columnes) {
+          let casella = document.getElementById(`${i}-${j}`);
+          let valorCasella = casella.getAttribute("data-num-mines");
+            if(valorCasella == 0){
+          casella.style.backgroundImage = "";
+            } else {
+          casella.style.backgroundImage = "";
+            }
+        }
+      }
+    }
+  }
 }
