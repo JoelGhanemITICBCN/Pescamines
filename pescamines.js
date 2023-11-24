@@ -52,6 +52,7 @@ function mostraCasella(x, y) {
   let casella = document.getElementById(`${x}-${y}`);
   let valorCasella = casella.getAttribute("data-num-mines");
   if (valorCasella == 0) {
+    casella.style.backgroundImage = "";
     mostraAdjacent(x, y);
   } else {
     casella.style.backgroundImage = "";
@@ -134,20 +135,62 @@ function iniciarPartida() {
   mida();
   crearTaulell();
 }
+
+
 function mostraAdjacent(x, y) {
-  for (let i = x - 1; i <= x + 1; i++) {
+  for (let i = x -1 ; i <= x + 1; i++) {
     for (let j = y - 1; j <= y + 1; j++) {
-      if (i !== x || j !== y) {
-        if (i >= 1 && i <= files && j >= 1 && j <= columnes) {
-          let casella = document.getElementById(`${i}-${j}`);
-          let valorCasella = casella.getAttribute("data-num-mines");
-            if(valorCasella == 0){
-          casella.style.backgroundImage = "";
-            } else {
-          casella.style.backgroundImage = "";
-            }
+      if (i >= 1 && i <= files && j >= 1 && j <= columnes) {
+        let casella = document.getElementById(`${i}-${j}`);
+        let mines = casella.getAttribute("data-num-mines");
+        if (!casella.innerText) { 
+          if(mines != 0) {
+            casella.style.backgroundImage = "";
+            casella.innerText = mines;
+          } else {
+            casella.style.backgroundImage = "";
+            mostraAdjacent(i, j); 
+          }
         }
       }
     }
   }
 }
+
+function estaEnContactoConVacia(x,y){
+  for (let i = x -1 ; i <= x + 1; i++) {
+    for (let j = y - 1; j <= y + 1; j++) {
+      if (i !== x || j !== y) {
+        if (i >= 1 && i <= files && j >= 1 && j <= columnes) {
+          let casella = document.getElementById(`${i}-${j}`);
+            let mines = casella.getAttribute("data-num-mines");
+            if(mines == 0) {
+              return true;
+          }
+        }
+      }
+    }
+  }
+  return false;
+}
+/*
+  let num = 0;
+  let casella = document.getElementById(`${x}-${y}`);
+  let valorCasella = casella.getAttribute("data-mina");
+  let mines = casella.getAttribute("data-num-mines");
+  while(valorCasella == "false"){
+    num++;
+    if(num >100) {
+      break;
+    }
+
+    if(mines >0){
+    casella.style.backgroundImage = "";
+    casella.innerText = mines;
+    } else {
+    casella.style.backgroundImage = "";
+    }
+
+
+  }
+  */
