@@ -1,2 +1,2 @@
 # Pescamines
-Exercici de pescamines en js
+## Joc del pescamines fet amb javascript
