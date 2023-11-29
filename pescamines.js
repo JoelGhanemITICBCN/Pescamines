@@ -137,7 +137,27 @@ function iniciarPartida() {
 }
 
 
-  function mostraAdjacent(x, y) {
+function mostraAdjacent(x, y) {
+  for (let i = x - 1; i <= x + 1; i++) {
+    for (let j = y - 1; j <= y + 1; j++) {
+      if (i >= 1 && i <= files && j >= 1 && j <= columnes) {
+        let casella = document.getElementById(`${i}-${j}`);
+        let mines = casella.getAttribute("data-num-mines");
+        if (!casella.innerText && !casella.classList.contains('checked')) { 
+          casella.classList.add('checked');
+          casella.style.backgroundImage = "";
+          if(mines != 0) {
+            casella.innerText = mines;
+          } else {
+            mostraAdjacent(i, j); 
+          }
+        }
+      }
+    }
+  }
+}
+
+  /*
     // Comprueba si la casilla está dentro del tablero
     if (x >= 1 && x <= files && y >= 1 && y <= columnes) {
       let casella = document.getElementById(`${x}-${y}`);
@@ -163,29 +183,8 @@ function iniciarPartida() {
       }
     }
   }
+  */
   
- /* for (let i = x -1 ; i <= x + 1; i++) {
-    for (let j = y - 1; j <= y + 1; j++) {
-      
-      if (i >= 1 && i <= files && j >= 1 && j <= columnes) {
-        let casella = document.getElementById(`${i}-${j}`);
-        let mines = casella.getAttribute("data-num-mines");
-        if (!casella.innerText) { 
-          if(mines != 0) {
-            casella.style.backgroundImage = "";
-            casella.innerText = mines;
-          } else {
-            casella.style.backgroundImage = "";
-            mostraAdjacent(i, j); 
-          }
-        }
-      }
-    }
-  }
-}
-(-)
-*/
-
 function estaEnContactoConVacia(x,y){
   for (let i = x -1 ; i <= x + 1; i++) {
     for (let j = y - 1; j <= y + 1; j++) {
