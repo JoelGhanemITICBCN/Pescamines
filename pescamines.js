@@ -137,8 +137,34 @@ function iniciarPartida() {
 }
 
 
-function mostraAdjacent(x, y) {
-  for (let i = x -1 ; i <= x + 1; i++) {
+  function mostraAdjacent(x, y) {
+    // Comprueba si la casilla está dentro del tablero
+    if (x >= 1 && x <= files && y >= 1 && y <= columnes) {
+      let casella = document.getElementById(`${x}-${y}`);
+      let mines = casella.getAttribute("data-num-mines");
+  
+      // Si la casilla no tiene ninguna mina cerca y aún no se ha revelado
+      if (mines == 0 && !casella.innerText) {
+        // Revela la casilla
+        casella.style.backgroundImage = "";
+        if(mines != 0) {
+        casella.innerText = mines;
+        }
+  
+        // Llama a la función recursivamente para todas las casillas adyacentes
+        mostraAdjacent(x - 1, y - 1);
+        mostraAdjacent(x - 1, y);
+        mostraAdjacent(x - 1, y + 1);
+        mostraAdjacent(x, y - 1);
+        mostraAdjacent(x, y + 1);
+        mostraAdjacent(x + 1, y - 1);
+        mostraAdjacent(x + 1, y);
+        mostraAdjacent(x + 1, y + 1);
+      }
+    }
+  }
+  
+ /* for (let i = x -1 ; i <= x + 1; i++) {
     for (let j = y - 1; j <= y + 1; j++) {
       if (i >= 1 && i <= files && j >= 1 && j <= columnes) {
         let casella = document.getElementById(`${i}-${j}`);
@@ -156,6 +182,8 @@ function mostraAdjacent(x, y) {
     }
   }
 }
+(-)
+*/
 
 function estaEnContactoConVacia(x,y){
   for (let i = x -1 ; i <= x + 1; i++) {
