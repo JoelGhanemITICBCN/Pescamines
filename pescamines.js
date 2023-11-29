@@ -166,6 +166,7 @@ function iniciarPartida() {
   
  /* for (let i = x -1 ; i <= x + 1; i++) {
     for (let j = y - 1; j <= y + 1; j++) {
+      
       if (i >= 1 && i <= files && j >= 1 && j <= columnes) {
         let casella = document.getElementById(`${i}-${j}`);
         let mines = casella.getAttribute("data-num-mines");
