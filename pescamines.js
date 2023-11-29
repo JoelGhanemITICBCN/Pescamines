@@ -178,7 +178,6 @@ obertes = 0;
 
 
 function hasGuanyat() {
-  console.log(`${totalCeldas} - ${numMines} = ${obertes}`);
   if (totalCeldas - numMines != obertes) {
     return false;
   }
