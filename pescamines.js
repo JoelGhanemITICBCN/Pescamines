@@ -1,6 +1,8 @@
 let files;
 let columnes;
-
+let totalCeldas;
+let numMines = 0;
+let obertes = 0;
 function mida() {
   if (files < 10) {
     files = 10;
@@ -27,8 +29,8 @@ function crearTaulell() {
   }
   taula += "</table>";
   taulell.innerHTML = taula;
-  console.log("antes de calcula");
   setMines();
+  totalMines();
   calculaAdjacents();
 }
 
@@ -47,16 +49,47 @@ function obreCasella(x, y) {
   } else {
     mostraCasella(x, y);
   }
+  if (hasGuanyat()) {
+    setTimeout(function () {
+      alert("HAS GUANYAT"), 3000;
+    });
+  }
+
 }
 function mostraCasella(x, y) {
   let casella = document.getElementById(`${x}-${y}`);
   let valorCasella = casella.getAttribute("data-num-mines");
   if (valorCasella == 0) {
     casella.style.backgroundImage = "";
+    casella.onclick = null;
     mostraAdjacent(x, y);
   } else {
+    obertes++;
+    casella.onclick = null;
     casella.style.backgroundImage = "";
     casella.innerText = valorCasella;
+  }
+}
+
+function mostraAdjacent(x, y) {
+  for (let i = x - 1; i <= x + 1; i++) {
+    for (let j = y - 1; j <= y + 1; j++) {
+      if (i >= 1 && i <= files && j >= 1 && j <= columnes) {
+        let casella = document.getElementById(`${i}-${j}`);
+        let mines = casella.getAttribute("data-num-mines");
+        if (!casella.innerText && !casella.classList.contains('checked')) {
+          casella.classList.add('checked');
+          casella.style.backgroundImage = "";
+          obertes++;
+          casella.onclick = null;
+          if (mines != 0) {
+            casella.innerText = mines;
+          } else {
+            mostraAdjacent(i, j);
+          }
+        }
+      }
+    }
   }
 }
 function calculaAdjacents() {
@@ -68,7 +101,6 @@ function calculaAdjacents() {
         for (let l = j - 1; l <= j + 1; l++) {
           if (k !== i || l !== j) {
             if (k >= 1 && k <= files && l >= 1 && l <= columnes) {
-              console.log(`${k}-${l}`);
               casellaAnexa = document.getElementById(`${k}-${l}`);
               valorCasellaAnnexa = casellaAnexa.getAttribute("data-mina");
               if (valorCasellaAnnexa == "true") {
@@ -88,19 +120,18 @@ function calculaAdjacents() {
 function setMinesAdjacents(x, y, nMinesAdjacents) {
   let elemento = document.getElementById(`${x}-${y}`);
   elemento.setAttribute("data-num-mines", [nMinesAdjacents]);
-  console.log(`${nMinesAdjacents}`);
 }
 function mouAAdjacent(x, y) {
   for (let i = x - 1; i <= x + 1; i++) {
-    for (let j = y - 1; j <= y + 1; j++) {}
+    for (let j = y - 1; j <= y + 1; j++) { }
   }
 }
 
 function setMines() {
-  let totalCeldas = files * columnes;
-  let numMines = Math.round(totalCeldas * 0.17);
+  totalCeldas = files * columnes;
+  mines = Math.round(totalCeldas * 0.17);
   let celdas = new Array(totalCeldas).fill(false);
-  for (let i = 0; i < numMines; i++) {
+  for (let i = 0; i < mines; i++) {
     celdas[i] = true;
   }
   celdas.sort(() => Math.random() - 0.5);
@@ -125,6 +156,7 @@ function mostraTotesLesMines() {
 }
 
 function hasPerdut() {
+  bloqueaTodo();
   setTimeout(function () {
     alert("Has perdut"), 3000;
   });
@@ -137,63 +169,26 @@ function iniciarPartida() {
 }
 
 
-function mostraAdjacent(x, y) {
-  for (let i = x - 1; i <= x + 1; i++) {
-    for (let j = y - 1; j <= y + 1; j++) {
-      if (i >= 1 && i <= files && j >= 1 && j <= columnes) {
-        let casella = document.getElementById(`${i}-${j}`);
-        let mines = casella.getAttribute("data-num-mines");
-        if (!casella.innerText && !casella.classList.contains('checked')) { 
-          casella.classList.add('checked');
-          casella.style.backgroundImage = "";
-          if(mines != 0) {
-            casella.innerText = mines;
-          } else {
-            mostraAdjacent(i, j); 
-          }
-        }
-      }
-    }
+
+
+function hasGuanyat() {
+  if (totalCeldas - numMines != obertes) {
+    return false;
   }
+  bloqueaTodo();
+  return true;
 }
 
-  /*
-    // Comprueba si la casilla está dentro del tablero
-    if (x >= 1 && x <= files && y >= 1 && y <= columnes) {
-      let casella = document.getElementById(`${x}-${y}`);
-      let mines = casella.getAttribute("data-num-mines");
-  
-      // Si la casilla no tiene ninguna mina cerca y aún no se ha revelado
-      if (mines == 0 && !casella.innerText) {
-        // Revela la casilla
-        casella.style.backgroundImage = "";
-        if(mines != 0) {
-        casella.innerText = mines;
-        }
-  
-        // Llama a la función recursivamente para todas las casillas adyacentes
-        mostraAdjacent(x - 1, y - 1);
-        mostraAdjacent(x - 1, y);
-        mostraAdjacent(x - 1, y + 1);
-        mostraAdjacent(x, y - 1);
-        mostraAdjacent(x, y + 1);
-        mostraAdjacent(x + 1, y - 1);
-        mostraAdjacent(x + 1, y);
-        mostraAdjacent(x + 1, y + 1);
-      }
-    }
-  }
-  */
-  
-function estaEnContactoConVacia(x,y){
-  for (let i = x -1 ; i <= x + 1; i++) {
+
+function estaEnContactoConVacia(x, y) {
+  for (let i = x - 1; i <= x + 1; i++) {
     for (let j = y - 1; j <= y + 1; j++) {
       if (i !== x || j !== y) {
         if (i >= 1 && i <= files && j >= 1 && j <= columnes) {
           let casella = document.getElementById(`${i}-${j}`);
-            let mines = casella.getAttribute("data-num-mines");
-            if(mines == 0) {
-              return true;
+          let mines = casella.getAttribute("data-num-mines");
+          if (mines == 0) {
+            return true;
           }
         }
       }
@@ -201,24 +196,23 @@ function estaEnContactoConVacia(x,y){
   }
   return false;
 }
-/*
-  let num = 0;
-  let casella = document.getElementById(`${x}-${y}`);
-  let valorCasella = casella.getAttribute("data-mina");
-  let mines = casella.getAttribute("data-num-mines");
-  while(valorCasella == "false"){
-    num++;
-    if(num >100) {
-      break;
+
+function totalMines() {
+  for (let i = 1; i <= files; i++) {
+    for (let j = 1; j <= columnes; j++) {
+      let elemento = document.getElementById(`${i}-${j}`);
+      let tieneBomba = elemento.getAttribute("data-mina");
+      if (tieneBomba == "true") {
+        numMines++;
+      }
     }
-
-    if(mines >0){
-    casella.style.backgroundImage = "";
-    casella.innerText = mines;
-    } else {
-    casella.style.backgroundImage = "";
-    }
-
-
   }
-  */
+}
+function bloqueaTodo() {
+  for (let i = 1; i <= files; i++) {
+    for (let j = 1; j <= columnes; j++) {
+      let elemento = document.getElementById(`${i}-${j}`);
+      elemento.onclick = null;
+    }
+  }
+}
