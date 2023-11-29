@@ -50,6 +50,7 @@ function obreCasella(x, y) {
     mostraCasella(x, y);
   }
   if (hasGuanyat()) {
+    mostraTotesLesMines();
     setTimeout(function () {
       alert("HAS GUANYAT"), 3000;
     });
@@ -152,7 +153,9 @@ function mostraTotesLesMines() {
       }
     }
   }
+  if (totalCeldas - numMines != obertes) {
   hasPerdut();
+  }
 }
 
 function hasPerdut() {
@@ -162,6 +165,9 @@ function hasPerdut() {
   });
 }
 function iniciarPartida() {
+totalCeldas = 0;
+numMines = 0;
+obertes = 0;
   files = prompt("Quantes files vols? (10 minim i 30 maxim)");
   columnes = prompt("Quantes columnes vols? (10 minim i 30 maxim)");
   mida();
@@ -172,6 +178,7 @@ function iniciarPartida() {
 
 
 function hasGuanyat() {
+  console.log(`${totalCeldas} - ${numMines} = ${obertes}`);
   if (totalCeldas - numMines != obertes) {
     return false;
   }
