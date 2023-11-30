@@ -23,7 +23,7 @@ function crearTaulell() {
   for (let i = 1; i <= files; i++) {
     taula += "<tr>";
     for (let j = 1; j <= columnes; j++) {
-      taula += `<td style="height: 60px; width: 60px; background-image: url('img/fons20px.jpg'); "data-mina = false" "data-num-mines = 0" onclick = "obreCasella(${i}, ${j})" id ="${i}-${j}"></td>`;
+      taula += `<td style="height: 25px; width: 25px; background-image: url('img/fons20px.jpg'); "data-mina = false" "data-num-mines = 0" onclick = "obreCasella(${i}, ${j})" id ="${i}-${j}"></td>`;
     }
     taula += "</tr>";
   }
@@ -52,8 +52,7 @@ function obreCasella(x, y) {
   if (hasGuanyat()) {
     mostraTotesLesMines();
     setTimeout(function () {
-      alert("HAS GUANYAT"), 3000;
-    });
+      alert("HAS GUANYAT");}, 1000);
   }
 
 }
@@ -161,8 +160,7 @@ function mostraTotesLesMines() {
 function hasPerdut() {
   bloqueaTodo();
   setTimeout(function () {
-    alert("Has perdut"), 3000;
-  });
+    alert("Has perdut");}, 1000);
 }
 function iniciarPartida() {
 totalCeldas = 0;

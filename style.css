@@ -10,26 +10,25 @@ body {
 }
 
 button {
-    height: 60px;
-    border-radius: 30px; 
-    width: auto;
-    margin-top: 5vh;
-    background-color: #4CAF50; 
+    background-color: #e710ee; 
     color: white; 
-    font-family: 'Arial', sans-serif; 
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 15px 32px; 
-    text-align: center; 
-    text-decoration: none; 
-    display: inline-block;
-    font-size: 16px;
-    transition-duration: 0.4s; 
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 200px;
+    transition-duration: 0.4s;
+    opacity: 0.9; 
 }
-
+#boton {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
 button:hover {
-    background-color: white; 
-    color: black;
+    opacity: 1; 
 }
 
 #taulell {
@@ -45,13 +44,13 @@ button:hover {
 }
   
 #taulell td {
-    height: 60px; 
-    width: 60px; 
+    height: 25px; 
+    width: 25px; 
     border: 1px solid #000;
-    font-size: 30px; 
+    font-size: 25; 
     text-align: center;
-    vertical-align: middle;
-    line-height: 60px; 
+    vertical-align: center;
+    line-height: 20px; 
     transition: background-color 0.3s ease;
 }
   
