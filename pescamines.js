@@ -23,7 +23,7 @@ function crearTaulell() {
   for (let i = 1; i <= files; i++) {
     taula += "<tr>";
     for (let j = 1; j <= columnes; j++) {
-      taula += `<td style="height: 20px; width: 20px; background-image: url('img/fons20px.jpg'); "data-mina = false" "data-num-mines = 0" onclick = "obreCasella(${i}, ${j})" id ="${i}-${j}"></td>`;
+      taula += `<td style="height: 60px; width: 60px; background-image: url('img/fons20px.jpg'); "data-mina = false" "data-num-mines = 0" onclick = "obreCasella(${i}, ${j})" id ="${i}-${j}"></td>`;
     }
     taula += "</tr>";
   }
